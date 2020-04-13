@@ -1,8 +1,7 @@
 package com.thoughtworks.twcinema;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.thoughtworks.twcinema.MovieClass.MovieList;
+import org.springframework.web.bind.annotation.*;
 
 // 表现层
 @RestController
@@ -19,5 +18,12 @@ public class MovieController {
         return movieService.getMovies();
     }
 
-
+    @CrossOrigin
+    @PostMapping("/post")
+    public MovieList post(@RequestBody MovieList movieList) {
+        System.out.println(movieList);
+        movieList.getMovies().forEach(m -> movieService.addMovie(m));
+        movieList.getMovies().forEach(m -> movieService.addActor(m));
+        return movieList;
+    }
 }

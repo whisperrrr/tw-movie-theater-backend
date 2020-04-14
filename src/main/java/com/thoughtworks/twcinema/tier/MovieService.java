@@ -1,9 +1,14 @@
-package com.thoughtworks.twcinema;
+package com.thoughtworks.twcinema.tier;
 
 import com.thoughtworks.twcinema.MovieClass.MovieDetail;
 import com.thoughtworks.twcinema.MovieDetailInfo.MovieDetailInfo;
+import com.thoughtworks.twcinema.entity.Actor;
+import com.thoughtworks.twcinema.entity.Comment;
+import com.thoughtworks.twcinema.entity.Movie;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 // 业务逻辑层
 @Service
@@ -22,7 +27,10 @@ public class MovieService {
 
     //添加电影到数据库
     public void addMovie(MovieDetail movieDetail) {
-        movieRepository.addMovie(movieDetail.getRating().getAverage(),
+        if (movieDetail == null) {
+            movieDetail = new MovieDetail();
+        }
+        movieRepository.addMovie(movieDetail.getRating().getMax(),
                 movieDetail.getTitle(),
                 movieDetail.getOriginal_title(),
                 movieDetail.getYear(),
@@ -37,13 +45,18 @@ public class MovieService {
 
     //添加演员到数据库
     public void addActor(MovieDetail movieDetail) {
+        if (movieDetail == null) {
+            movieDetail = new MovieDetail();
+        }
         int id = Integer.parseInt(movieDetail.getId());
         movieDetail.getCasts()
-                .forEach(casts -> movieRepository.addActor(casts.getName(),
-                        casts.getAvatars().getSmall(),
-                        casts.getAvatars().getMedium(),
-                        casts.getAvatars().getLarge(),
-                        id));
+                .forEach(casts -> {
+                    movieRepository.addActor(casts.getName(),
+                            casts.getAvatars().getSmall(),
+                            casts.getAvatars().getMedium(),
+                            casts.getAvatars().getLarge(),
+                            id);
+                });
     }
 
     public void addMovieSummary(MovieDetailInfo movieDetailInfo) {
@@ -57,8 +70,23 @@ public class MovieService {
     }
 
     // 通过id获取电影
+    // 需要的东西  title,origin_title
+    // genres(type),lanuguage,pubdate,duration,rating,directorname,castname
+    // smallimage,cast[0]smallimg,cast[1]smallimg
+    // summary
+    // commit(单独发ajax吧)
     public Movie getMoviesById(String id) {
         return movieRepository.findById(id).orElse(null);
+    }
+
+    // 通过id获取电影评论列表
+    public List<Comment> getCommitById(String id) {
+        return movieRepository.getCommit(id);
+    }
+
+    // 通过id获取演员列表
+    public List<Actor> getActorById(String id) {
+        return movieRepository.getActor(id);
     }
 
 }

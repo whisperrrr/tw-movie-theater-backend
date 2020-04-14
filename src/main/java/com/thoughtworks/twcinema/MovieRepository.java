@@ -10,7 +10,7 @@ public interface MovieRepository extends CrudRepository<Movie, String> {
     @Modifying
     @Query("INSERT INTO movie (`rating`, `title`, `original_title`, `id`, `year`, `directors`, `genres`, `small`, `median`, `large`) " +
             "VALUES (:rating, :title, :original_title, :id , :year, :directors, :genres, :small, :median, :large);")
-    void addMovie(@Param("rating") int rating,
+    void addMovie(@Param("rating") double rating,
                   @Param("title") String title,
                   @Param("original_title") String original_title,
                   @Param("year") String year,

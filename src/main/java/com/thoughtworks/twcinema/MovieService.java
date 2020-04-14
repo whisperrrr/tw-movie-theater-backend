@@ -22,7 +22,7 @@ public class MovieService {
 
     //添加电影到数据库
     public void addMovie(MovieDetail movieDetail) {
-        movieRepository.addMovie(movieDetail.getRating().getMax(),
+        movieRepository.addMovie(movieDetail.getRating().getAverage(),
                 movieDetail.getTitle(),
                 movieDetail.getOriginal_title(),
                 movieDetail.getYear(),

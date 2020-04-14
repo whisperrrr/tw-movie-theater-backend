@@ -1,6 +1,7 @@
 package com.thoughtworks.twcinema;
 
 import com.thoughtworks.twcinema.MovieClass.MovieDetail;
+import com.thoughtworks.twcinema.MovieDetailInfo.MovieDetailInfo;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,6 @@ public class MovieService {
 
     //添加电影到数据库
     public void addMovie(MovieDetail movieDetail) {
-        if (movieDetail == null) {
-            movieDetail = new MovieDetail();
-        }
         movieRepository.addMovie(movieDetail.getRating().getMax(),
                 movieDetail.getTitle(),
                 movieDetail.getOriginal_title(),
@@ -39,16 +37,23 @@ public class MovieService {
 
     //添加演员到数据库
     public void addActor(MovieDetail movieDetail) {
-        if (movieDetail == null) {
-            movieDetail = new MovieDetail();
-        }
-        int id = Integer.parseInt(movieDetail.getDirectors().get(0).getId());
+        int id = Integer.parseInt(movieDetail.getId());
         movieDetail.getCasts()
                 .forEach(casts -> movieRepository.addActor(casts.getName(),
                         casts.getAvatars().getSmall(),
                         casts.getAvatars().getMedium(),
                         casts.getAvatars().getLarge(),
                         id));
+    }
+
+    public void addMovieSummary(MovieDetailInfo movieDetailInfo) {
+        movieRepository.addSummary(movieDetailInfo.getSummary(), Integer.parseInt(movieDetailInfo.getId()));
+    }
+
+    public void addPopularComment(MovieDetailInfo movieDetailInfo) {
+        movieDetailInfo.getPopularComments()
+                .forEach(c -> movieRepository
+                        .addPopularComment(c.getAuthor().getName(), c.getContent(), Integer.parseInt(movieDetailInfo.getId())));
     }
 
     // 通过id获取电影

@@ -21,3 +21,9 @@ CREATE TABLE `actor` (
   `large` varchar(255) DEFAULT NULL,
   KEY `id_idx` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `popular_comments` (
+  `id` int NOT NULL,
+  `name` varchar(10) DEFAULT NULL,
+  `comment` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

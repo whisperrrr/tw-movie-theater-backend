@@ -29,4 +29,15 @@ public interface MovieRepository extends CrudRepository<Movie, String> {
                   @Param("median") String median,
                   @Param("large") String large,
                   @Param("id") int id);
+
+    @Modifying
+    @Query("INSERT INTO popular_comments (`id`, `name`, `comment`) VALUES (:id, :name, :comment);")
+    void addPopularComment(@Param("name") String name,
+                           @Param("comment") String comment,
+                           @Param("id") int id);
+
+    @Modifying
+    @Query("UPDATE movie SET `summary` = :summary WHERE (`id` = :id);")
+    void addSummary(@Param("summary") String summary,
+                    @Param("id") int id);
 }

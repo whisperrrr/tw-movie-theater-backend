@@ -30,10 +30,10 @@ public class Movie {
     private String largeImg;
     @Column("summary")
     private String summary;
-//    @Column("language")
-//    private String language;
-//    @Column("time")
-//    private String time;
+    @Column("language")
+    private String language;
+    @Column("durations")
+    private String durations;
 //    @Column("rate")
 //    private String rate;
 //    @Column("actor")
@@ -134,5 +134,21 @@ public class Movie {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getDurations() {
+        return durations;
+    }
+
+    public void setDurations(String durations) {
+        this.durations = durations;
     }
 }

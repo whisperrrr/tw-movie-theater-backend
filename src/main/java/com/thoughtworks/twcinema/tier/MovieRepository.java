@@ -13,9 +13,9 @@ import java.util.List;
 // 数据访问层
 public interface MovieRepository extends CrudRepository<Movie, String> {
     @Modifying
-    @Query("INSERT INTO movie (`rating`, `title`, `original_title`, `id`, `year`, `directors`, `genres`, `small`, `median`, `large`) " +
-            "VALUES (:rating, :title, :original_title, :id , :year, :directors, :genres, :small, :median, :large);")
-    void addMovie(@Param("rating") int rating,
+    @Query("INSERT INTO movie (`rating`, `title`, `original_title`, `id`, `year`, `directors`, `genres`, `small`, `median`, `large`, `durations`) " +
+            "VALUES (:rating, :title, :original_title, :id , :year, :directors, :genres, :small, :median, :large, :durations);")
+    void addMovie(@Param("rating") double rating,
                   @Param("title") String title,
                   @Param("original_title") String original_title,
                   @Param("year") String year,
@@ -24,7 +24,9 @@ public interface MovieRepository extends CrudRepository<Movie, String> {
                   @Param("genres") String genres,
                   @Param("small") String small,
                   @Param("median") String median,
-                  @Param("large") String large);
+                  @Param("large") String large,
+                  @Param("durations") String durations
+                  );
 
     @Modifying
     @Query("INSERT INTO actor (`id`, `actor_name`, `small`, `median`, `large`) " +
@@ -43,6 +45,11 @@ public interface MovieRepository extends CrudRepository<Movie, String> {
     @Modifying
     @Query("UPDATE movie SET `summary` = :summary WHERE (`id` = :id);")
     void addSummary(@Param("summary") String summary,
+                    @Param("id") int id);
+
+    @Modifying
+    @Query("UPDATE movie SET `language` = :language WHERE (`id` = :id);")
+    void addLanguage(@Param("language") String language,
                     @Param("id") int id);
 
     @Query("SELECT id,name,comment FROM popular_comments WHERE id = :id")

@@ -41,6 +41,7 @@ public class MovieController {
     @PostMapping("/post/{id}")
     public MovieDetailInfo postMovieDetail(@RequestBody MovieDetailInfo movieDetailInfo){
         movieService.addMovieSummary(movieDetailInfo);
+        movieService.addLanguage(movieDetailInfo);
         movieService.addPopularComment(movieDetailInfo);
         return movieDetailInfo;
     }

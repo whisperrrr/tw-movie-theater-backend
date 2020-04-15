@@ -30,7 +30,7 @@ public class MovieService {
         if (movieDetail == null) {
             movieDetail = new MovieDetail();
         }
-        movieRepository.addMovie(movieDetail.getRating().getMax(),
+        movieRepository.addMovie(movieDetail.getRating().getAverage(),
                 movieDetail.getTitle(),
                 movieDetail.getOriginal_title(),
                 movieDetail.getYear(),
@@ -39,7 +39,8 @@ public class MovieService {
                 StringUtils.join(movieDetail.getGenres(), ','),
                 movieDetail.getImages().getSmall(),
                 movieDetail.getImages().getMedium(),
-                movieDetail.getImages().getLarge()
+                movieDetail.getImages().getLarge(),
+                movieDetail.getDurations().get(0)
         );
     }
 
@@ -61,6 +62,10 @@ public class MovieService {
 
     public void addMovieSummary(MovieDetailInfo movieDetailInfo) {
         movieRepository.addSummary(movieDetailInfo.getSummary(), Integer.parseInt(movieDetailInfo.getId()));
+    }
+
+    public void addLanguage (MovieDetailInfo movieDetailInfo) {
+        movieRepository.addLanguage(movieDetailInfo.getLanguages().get(0), Integer.parseInt(movieDetailInfo.getId()));
     }
 
     public void addPopularComment(MovieDetailInfo movieDetailInfo) {

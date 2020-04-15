@@ -14,12 +14,12 @@ public class DataSourceConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//        dataSource.setUrl("jdbc:mysql://localhost:3306/tw_theater?useUnicode=true&characterEncoding=utf-8&serverTimezone=Hongkong&useSSL=false");
-//        dataSource.setUsername("root");
-//        dataSource.setPassword("931205");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/movie_theater?useUnicode=true&characterEncoding=utf-8&serverTimezone=Hongkong&useSSL=false");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/tw_theater?useUnicode=true&characterEncoding=utf-8&serverTimezone=Hongkong&useSSL=false");
         dataSource.setUsername("root");
-        dataSource.setPassword("tangyunhan");
+        dataSource.setPassword("931205");
+//        dataSource.setUrl("jdbc:mysql://localhost:3306/movie_theater?useUnicode=true&characterEncoding=utf-8&serverTimezone=Hongkong&useSSL=false");
+//        dataSource.setUsername("root");
+//        dataSource.setPassword("tangyunhan");
         return dataSource;
     }
 }

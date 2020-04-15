@@ -3,7 +3,6 @@ package com.thoughtworks.twcinema.entity;
 import org.springframework.data.relational.core.mapping.Column;
 
 public class Actor {
-    // TODO 根据后台数据写上column
     @Column("id")
     private int movieId;
     @Column("actor_name")
